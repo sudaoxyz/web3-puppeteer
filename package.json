@@ -1,0 +1,32 @@
+{
+    "name": "web3-puppeteer",
+    "version": "0.1.0",
+    "description": "通过puppeteer打开dapp，在无插件的情况下，可以自动连接dapp。需要在脚本中配置私钥。",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "node ./node_modules/.bin/tsc",
+        "dev": "node ./node_modules/.bin/tsc --watch"
+    },
+    "keywords": [
+        "web3",
+        "dapp",
+        "puppeteer",
+        "wallet",
+        "auto",
+        "metamask"
+    ],
+    "author": "SuDAO",
+    "license": "MIT",
+    "dependencies": {
+        "ethers": "^6.3.0",
+        "puppeteer-core": "^20.2.0"
+    },
+    "devDependencies": {
+        "@types/post-message-stream": "^3.0.1",
+        "typescript": "^5.1.3"
+    },
+    "engines": {
+        "node": ">=16"
+    }
+}
