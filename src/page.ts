@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path';
-import { Page } from "puppeteer-core";
+import { Browser, Page } from "puppeteer-core";
 import { Account, ChainInfo, Role, newRequest, newResponse } from "./define";
 import { Service } from './service';
 
@@ -15,7 +15,6 @@ export class W3Page {
         this.id = Math.floor((1 + Math.random()) * 100000000)
         this.service = new Service(accounts, chainInfo)
     }
-
 
     async ChangeAccounts(accounts: Array<Account>) {
         this.service.changeAccounts(accounts)
@@ -49,6 +48,13 @@ export class W3Page {
         })
     }
 
+    async SetupStrict() {
+        await this.SetUp()
+        const content = await this.page.content()
+        await this.page.setJavaScriptEnabled(true)
+        await this.page.setContent(content)
+    }
+
     private async injectFile(filePath: string) {
         const text = fs.readFileSync(path.resolve(__dirname, filePath), { encoding: 'utf8' })
         await this.injectContent(text)
@@ -59,10 +65,10 @@ export class W3Page {
             try {
                 const container = document.head || document.documentElement;
                 const scriptTag = document.createElement('script');
-                scriptTag.type = 'module';
+                scriptTag.setAttribute('async', 'false');
                 scriptTag.textContent = content;
                 container.insertBefore(scriptTag, container.children[0]);
-                container.removeChild(scriptTag);
+                // container.removeChild(scriptTag);
             } catch (error) {
                 console.error('Web3-puppeteer: injection failed.', error);
             }
