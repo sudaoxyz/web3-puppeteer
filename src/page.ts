@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path';
-import { Browser, Page } from "puppeteer-core";
+import { Page } from "puppeteer-core";
 import { Account, ChainInfo, Role, newRequest, newResponse } from "./define";
 import { Service } from './service';
 
