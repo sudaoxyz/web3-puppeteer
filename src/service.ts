@@ -1,5 +1,4 @@
-// eip1193
-import { BaseWallet, JsonRpcProvider, Provider, Wallet, toNumber, toQuantity } from "ethers";
+import { BaseWallet, JsonRpcProvider, Provider, Wallet, getBytes, isHexString, toNumber, toQuantity } from "ethers";
 import { Account, ChainInfo, IService } from "./define";
 
 export class Service implements IService {
@@ -43,6 +42,10 @@ export class Service implements IService {
             res.push(account.address)
         }
         return res
+    }
+
+    async eth_coinbase() {
+        return await this.eth_requestAccounts()
     }
 
     async eth_accounts() {
@@ -136,8 +139,21 @@ export class Service implements IService {
         return ''
     }
 
+    async personal_sign(params: any): Promise<string> {
+        const signer = this.getSigner(params[1])
+        let message = params[0]
+        if (isHexString(message)) {
+            message = getBytes(message)
+        }
+        const signed = await signer.signMessage(message)
+        return signed
+    }
+
     // wallet
     async wallet_switchEthereumChain(params: any): Promise<undefined> {
+        return undefined
+    }
+    async wallet_addEthereumChain(params: any): Promise<undefined> {
         return undefined
     }
 
@@ -153,14 +169,15 @@ export class Service implements IService {
     }
 
     async metamask_sendDomainMetadata(params: any) {
-        // params = {
-        //     "name": "Uniswap Interface",
-        //     "icon": "https://app.uniswap.org/favicon.png"
-        // }
         return true
     }
 
     async net_listening(params: any) {
+    }
+
+    async net_version(params: any) {
+        const network = await this.provider.getNetwork()
+        return toQuantity(network.chainId)
     }
 
     async wallet_getPermissions(params: any) {
@@ -172,14 +189,20 @@ export class Service implements IService {
                 return this.wallet_getPermissions(params)
             case 'net_listening':
                 return this.net_listening(params)
+            case 'net_version':
+                return this.net_version(params)
             case 'metamask_sendDomainMetadata':
                 return this.metamask_sendDomainMetadata(params)
             case 'metamask_getProviderState':
                 return this.metamask_getProviderState()
             case 'wallet_switchEthereumChain':
                 return this.wallet_switchEthereumChain(params)
+            case 'wallet_addEthereumChain':
+                return this.wallet_addEthereumChain(params)
             case 'eth_sign':
                 return this.eth_sign(params)
+            case 'personal_sign':
+                return this.personal_sign(params)
             case 'eth_getTransactionReceipt':
                 return this.eth_getTransactionReceipt(params)
             case 'eth_getTransactionByHash':
@@ -198,6 +221,8 @@ export class Service implements IService {
                 return this.eth_gasPrice()
             case 'eth_requestAccounts':
                 return this.eth_requestAccounts()
+            case 'eth_coinbase':
+                return this.eth_coinbase()
             case 'eth_accounts':
                 return this.eth_accounts()
             case 'eth_blockNumber':

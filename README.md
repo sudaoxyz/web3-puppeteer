@@ -1,12 +1,22 @@
-通过puppeteer打开dapp，在无插件的情况下，可以自动连接dapp。需要在脚本中配置私钥。
+通过puppeteer打开并连接dapp，无需在浏览器中安装插件，不在浏览器中存储私钥。将私钥放在自己可控的脚本当中。
+
+>可以在指纹浏览器不可信任的情况下安全使用
+
+由于npm包代码不一定和开源代码完全一致，因此不提供npm安装方式，建议fork本项目，在本地启动：
+
+1. 下载源码或clone
+2. 根目录下执行 npm install
+3. 在脚本中引用dist包中的代码（项目中bitBrowser目录下已经提供比特浏览器的脚本示例，运行前执行npm install）
+
+可关注Twitter反馈问题：https://twitter.com/sudaoxyz67557
 
 ```javascript
 const res = await openBrowser(browserId)
 const browser = await connectBrowser(res, browserId)
 
-// strict demo
+// strict demo （某些app连接不上可以尝试strict模式）
 const w3page = await NewPageStrict(browser, [accounts[0]], chains[1])
-await w3page.page.goto('https://www.nftsniper.club/')
+await w3page.page.goto('https://xxx')
 await w3page.SetupStrict()
 
 // normal page
