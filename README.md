@@ -6,9 +6,12 @@
 
 1. 下载源码或clone
 2. 根目录下执行 npm install
-3. 在脚本中引用dist包中的代码（项目中bitBrowser目录下已经提供比特浏览器的脚本示例，运行前执行npm install）
+3. npm run build
+4. 在脚本中引用dist包中的代码（项目中bitBrowser目录下已经提供比特浏览器的脚本示例，运行前执行npm install）
 
 可关注Twitter反馈问题：https://twitter.com/sudaoxyz67557
+微信群：![image](https://github.com/sudaoxyz/web3-puppeteer/assets/133337545/76df78f0-161b-4e71-8a06-1c6c46575b20)
+
 
 ```javascript
 const res = await openBrowser(browserId)
