@@ -94,7 +94,7 @@ export class Service implements IService {
 
     async eth_sendTransaction(params: any) {
         const address = params[0].from
-        if (this.accounts.indexOf(address) < 0) {
+        if (!this.accounts.find(account => account.address == address)) {
             return
         }
 

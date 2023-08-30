@@ -111,7 +111,7 @@ class Service {
     eth_sendTransaction(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const address = params[0].from;
-            if (this.accounts.indexOf(address) < 0) {
+            if (!this.accounts.find(account => account.address == address)) {
                 return;
             }
             const signer = this.getSigner(address).connect(this.provider);

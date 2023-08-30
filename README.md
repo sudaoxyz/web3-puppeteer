@@ -1,5 +1,6 @@
 通过puppeteer打开并连接dapp，无需在浏览器中安装插件，不在浏览器中存储私钥。将私钥放在自己可控的脚本当中。
-
+## Github地址
+https://github.com/sudaoxyz/web3-puppeteer
 >可以在指纹浏览器不可信任的情况下安全使用
 
 由于npm包代码不一定和开源代码完全一致，因此不提供npm安装方式，建议fork本项目，在本地启动：
