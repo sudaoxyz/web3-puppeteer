@@ -10,7 +10,7 @@ https://github.com/sudaoxyz/web3-puppeteer
 3. npm run build
 4. 在脚本中引用dist包中的代码（项目中bitBrowser目录下已经提供比特浏览器的脚本示例，运行前执行npm install）
 
-可关注Twitter反馈问题：https://twitter.com/sudaoxyz67557
+可关注Twitter反馈问题：[eval_social](https://twitter.com/eval_social)
 
 
 ```javascript
